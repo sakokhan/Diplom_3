@@ -4,8 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class WebDriverCreator {
-    private final static String YANDEX_BROWSER_DRIVER = "C:\\webDriver\\bin\\yandex.exe";
-    private final static String YANDEX_BROWSER_PATH = "C:\\Yandex\\YandexBrowser\\Application\\browser.exe";
+
     public static WebDriver createWebDriver() {
         String browser = System.getProperty("browser");
         if (browser == null) {
@@ -27,9 +26,11 @@ public class WebDriverCreator {
     }
 
     private static WebDriver createYandexDriver() {
-        System.setProperty("webdriver.chrome.driver", YANDEX_BROWSER_DRIVER);
+        System.setProperty("webdriver.chrome.driver",
+                String.format("%s/%s", System.getenv("WEBDRIVERS"),
+                        System.getenv("YANDEX_BROWSER_DRIVER_FILENAME")));
         ChromeOptions options = new ChromeOptions();
-        options.setBinary(YANDEX_BROWSER_PATH);
+        options.setBinary(System.getenv("YANDEX_BROWSER_PATH"));
         return new ChromeDriver(options);
     }
 }
